@@ -1,5 +1,6 @@
 import 'package:daily_todo/common/constant/colors.dart';
 import 'package:daily_todo/provider/calendar_provider.dart';
+import 'package:daily_todo/provider/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -30,6 +31,7 @@ class _CalendarState extends ConsumerState<Calendar> {
   @override
   Widget build(BuildContext context) {
     final calendarState = ref.watch(calendarProvider);
+    final eventState = ref.watch(eventProvider(calendarState.selectedDate));
     return TableCalendar(
       focusedDay: calendarState.currentViewDate,
       firstDay: DateTime(1900),
@@ -37,12 +39,16 @@ class _CalendarState extends ConsumerState<Calendar> {
       daysOfWeekHeight: 20,
       headerStyle: HeaderStyle(formatButtonVisible: false),
       calendarStyle: CalendarStyle(
-        isTodayHighlighted: false,
-        selectedDecoration: BoxDecoration(
-          color: PRIMARY_COLOR,
-          shape: BoxShape.circle,
-        ),
-      ),
+          isTodayHighlighted: false,
+          selectedDecoration: BoxDecoration(
+            color: PRIMARY_COLOR,
+            shape: BoxShape.circle,
+          ),
+          markerDecoration: BoxDecoration(
+            color: ACCENT_COLOR,
+            shape: BoxShape.circle,
+          )),
+      eventLoader: eventLoader,
       daysOfWeekStyle: DaysOfWeekStyle(decoration: BoxDecoration()),
       selectedDayPredicate: selectedDayPredicate,
       onDaySelected: onDaySelected,
@@ -60,5 +66,10 @@ class _CalendarState extends ConsumerState<Calendar> {
         .read(calendarProvider.notifier)
         .updateSelectedDate(
             selectedDate: selectedDay, currentViewDate: selectedDay);
+  }
+
+  List eventLoader(day) {
+    final hasEvents = ref.read(eventProvider(day));
+    return hasEvents;
   }
 }
