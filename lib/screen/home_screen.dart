@@ -1,5 +1,6 @@
 import 'package:daily_todo/common/layout/default_layout.dart';
 import 'package:daily_todo/common/widget/calendar.dart';
+import 'package:daily_todo/common/widget/calendar_banner.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Calendar(),
+            CalendarBanner(),
           ],
         ),
       ),
