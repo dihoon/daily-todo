@@ -31,7 +31,18 @@ class _TodoListState extends ConsumerState<TodoList> {
                 );
               }
 
-              return Todo(todo: dailyTodo[index]);
+              return Dismissible(
+                  key: ObjectKey(dailyTodo[index].id),
+                  direction: DismissDirection.startToEnd,
+                  confirmDismiss: (direction) async {
+                    final dailyTodoNotifier =
+                        ref.read(dailyTodoProvider(selectedDate).notifier);
+
+                    dailyTodoNotifier.removeTodo(dailyTodo[index].id);
+
+                    return true;
+                  },
+                  child: Todo(todo: dailyTodo[index]));
             },
             separatorBuilder: (_, index) {
               return SizedBox(
