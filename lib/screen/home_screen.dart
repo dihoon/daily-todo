@@ -1,3 +1,4 @@
+import 'package:daily_todo/common/constant/colors.dart';
 import 'package:daily_todo/common/layout/default_layout.dart';
 import 'package:daily_todo/common/widget/calendar.dart';
 import 'package:daily_todo/common/widget/calendar_banner.dart';
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultLayout(
       floatingButton: FloatingActionButton(
+        backgroundColor: PRIMARY_COLOR,
         onPressed: () {
           showModalBottomSheet(
               context: context,

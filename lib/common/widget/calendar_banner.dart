@@ -1,5 +1,6 @@
 import 'package:daily_todo/common/constant/colors.dart';
 import 'package:daily_todo/provider/calendar_provider.dart';
+import 'package:daily_todo/provider/daily_todo_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +10,7 @@ class CalendarBanner extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final calendarState = ref.watch(calendarProvider);
+    final todos = ref.watch(dailyTodoProvider(calendarState.selectedDate));
     final selectedDate = calendarState.selectedDate;
 
     final defaultTextStyle = TextStyle(color: Colors.white);
@@ -28,7 +30,7 @@ class CalendarBanner extends ConsumerWidget {
               style: defaultTextStyle,
             ),
             Text(
-              '${0}개',
+              '${todos.length}개',
               style: defaultTextStyle,
             )
           ],
