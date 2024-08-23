@@ -18,8 +18,13 @@ class _CalendarState extends ConsumerState<Calendar> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now().toUtc();
-    currentViewDate = DateTime.now().toUtc();
+    final now = DateTime.now();
+    selectedDate = DateTime.utc(now.year, now.month, now.day);
+    currentViewDate = selectedDate;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onDaySelected(selectedDate, currentViewDate);
+    });
   }
 
   @override

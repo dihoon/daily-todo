@@ -1,6 +1,8 @@
 import 'package:daily_todo/common/layout/default_layout.dart';
 import 'package:daily_todo/common/widget/calendar.dart';
 import 'package:daily_todo/common/widget/calendar_banner.dart';
+import 'package:daily_todo/common/widget/custom_bottom_sheet.dart';
+import 'package:daily_todo/common/widget/todo_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,11 +11,22 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
+      floatingButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return CustomBottomSheet();
+              });
+        },
+        child: Icon(Icons.add),
+      ),
       body: SafeArea(
         child: Column(
           children: [
             Calendar(),
             CalendarBanner(),
+            TodoList(),
           ],
         ),
       ),
