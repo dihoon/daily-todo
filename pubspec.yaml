@@ -29,11 +29,19 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   drift_dev: ^2.20.1
   build_runner: ^2.4.11
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
   fonts:
    - family: Jua
      fonts:
-       - asset: fonts/Jua-Regular.ttf
+       - asset: assets/fonts/Jua-Regular.ttf
          weight: 500
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path_android: "assets/icon/daily_todo.png"
+  image_path_ios: "assets/icon/daily_todo.png"
