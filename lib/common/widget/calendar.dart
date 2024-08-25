@@ -69,7 +69,7 @@ class _CalendarState extends ConsumerState<Calendar> {
   }
 
   List eventLoader(day) {
-    final hasEvents = ref.read(eventProvider(day));
+    final hasEvents = ref.watch(eventProvider(day));
     return hasEvents;
   }
 }

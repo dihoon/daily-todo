@@ -3,6 +3,7 @@ import 'package:daily_todo/provider/calendar_provider.dart';
 import 'package:daily_todo/provider/daily_todo_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 class CustomBottomSheet extends ConsumerStatefulWidget {
   const CustomBottomSheet({super.key});
@@ -54,10 +55,10 @@ class _CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
     final dailyTodoNotifier =
         ref.read(dailyTodoProvider(selectedDate).notifier);
     if (content != '') {
-      final newTodo = TodoModel(id: '${DateTime.now()}', content: content);
+      final newTodo =
+          TodoModel(id: Uuid().v4(), content: content, date: selectedDate);
 
       dailyTodoNotifier.addTodo(newTodo);
-      ;
     }
 
     Navigator.of(context).pop();
