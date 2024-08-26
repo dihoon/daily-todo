@@ -37,7 +37,10 @@ class _CalendarState extends ConsumerState<Calendar> {
       firstDay: DateTime(1900),
       lastDay: DateTime(3000),
       daysOfWeekHeight: 20,
-      headerStyle: HeaderStyle(formatButtonVisible: false),
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+      ),
       calendarStyle: CalendarStyle(
           isTodayHighlighted: false,
           selectedDecoration: BoxDecoration(

@@ -5,7 +5,8 @@ import 'package:get_it/get_it.dart';
 
 final dailyTodoProvider =
     StateNotifierProvider.family<DailyTodoNotifier, List<TodoModel>, DateTime>(
-        (ref, date) => DailyTodoNotifier(date: date));
+  (ref, date) => DailyTodoNotifier(date: date),
+);
 
 class DailyTodoNotifier extends StateNotifier<List<TodoModel>> {
   final DateTime date;

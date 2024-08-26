@@ -14,19 +14,41 @@ final todoProvider =
 
   final TodoModel todo = todos.firstWhere((todo) => todo.id == id);
 
-  return TodoNotifier(todo);
+  return TodoNotifier(todo: todo, ref: ref, selectedDate: selectedDate);
 });
 
 class TodoNotifier extends StateNotifier<TodoModel> {
-  TodoNotifier(TodoModel todo) : super(todo);
+  final Ref ref;
+  final DateTime selectedDate;
+  TodoNotifier({
+    required TodoModel todo,
+    required this.ref,
+    required this.selectedDate,
+  }) : super(todo);
 
   void toggleCompletion() {
     final database = GetIt.I<AppDatabase>();
 
     state = state.copyWith(isCompleted: !state.isCompleted!);
 
-    final TodoTableCompanion = state.toDrift();
+    final todoTableCompanion = state.toDrift();
 
-    database.updateTodoById(state.id, TodoTableCompanion);
+    database.updateTodoById(state.id, todoTableCompanion);
+
+    ref.read(dailyTodoProvider(selectedDate).notifier).loadTodosForDate();
+  }
+
+  void updateContent(String content) {
+    final database = GetIt.I<AppDatabase>();
+
+    state = state.copyWith(
+      content: content,
+    );
+
+    final todoTableCompanion = state.toDrift();
+
+    database.updateTodoById(state.id, todoTableCompanion);
+
+    ref.read(dailyTodoProvider(selectedDate).notifier).loadTodosForDate();
   }
 }
